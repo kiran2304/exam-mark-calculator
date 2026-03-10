@@ -47,17 +47,16 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         gap: spacing.md,
-        marginBottom: spacing.md,
     },
     pill: {
         flex: 1,
         alignItems: 'center',
         paddingVertical: spacing.md,
         paddingHorizontal: spacing.sm,
-        borderRadius: radius.lg,
+        borderRadius: radius.xl,
         borderWidth: 1.5,
     },
-    pillIcon: { fontSize: 18, marginBottom: 4 },
+    pillIcon: { fontSize: 20, marginBottom: 6 },
     pillValue: { fontSize: typography.sizes.xxl, fontWeight: typography.weights.extraBold, letterSpacing: -0.5 },
-    pillLabel: { fontSize: typography.sizes.xs, fontWeight: typography.weights.medium, marginTop: 2, letterSpacing: 0.3 },
+    pillLabel: { fontSize: typography.sizes.sm, fontWeight: typography.weights.medium, marginTop: 4, letterSpacing: 0.3 },
 });

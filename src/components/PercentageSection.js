@@ -29,7 +29,7 @@ export default function PercentageSection({ totalScore, totalQuestions }) {
         <View style={[styles.card, { backgroundColor: colors.surface, borderColor: pctColor }, shadow.card]}>
             {/* Header row */}
             <View style={styles.headerRow}>
-                <Text style={[styles.label, { color: colors.textSecondary }]}>PERCENTAGE</Text>
+                <Text style={[styles.label, { color: colors.textSecondary }]}>📊 PERCENTAGE</Text>
                 <View style={[styles.gradeBadge, { backgroundColor: pctColor + '22', borderColor: pctColor }]}>
                     <Text style={[styles.gradeText, { color: pctColor }]}>Grade {grade}</Text>
                 </View>
@@ -60,10 +60,10 @@ export default function PercentageSection({ totalScore, totalQuestions }) {
 
 const styles = StyleSheet.create({
     card: {
-        borderRadius: radius.lg,
+        borderRadius: radius.xl,
         padding: spacing.lg,
-        marginBottom: spacing.md,
         borderWidth: 2,
+        height: '100%',
     },
     headerRow: {
         flexDirection: 'row',
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
         marginBottom: spacing.sm,
     },
     label: {
-        fontSize: typography.sizes.xs,
+        fontSize: typography.sizes.sm,
         fontWeight: typography.weights.bold,
         letterSpacing: 1,
         textTransform: 'uppercase',
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
         borderRadius: radius.full,
         borderWidth: 1.5,
         paddingHorizontal: spacing.sm,
-        paddingVertical: 2,
+        paddingVertical: 4,
     },
     gradeText: {
         fontSize: typography.sizes.xs,
@@ -91,22 +91,22 @@ const styles = StyleSheet.create({
     pctRow: {
         flexDirection: 'row',
         alignItems: 'flex-end',
-        marginBottom: spacing.sm,
+        marginBottom: spacing.md,
     },
     pctValue: {
-        fontSize: 52,
+        fontSize: 64,
         fontWeight: typography.weights.extraBold,
         letterSpacing: -2,
-        lineHeight: 56,
+        lineHeight: 68,
     },
     pctSymbol: {
-        fontSize: typography.sizes.xxl,
+        fontSize: typography.sizes.xl,
         fontWeight: typography.weights.bold,
-        marginBottom: 6,
+        marginBottom: 10,
         marginLeft: 4,
     },
     barTrack: {
-        height: 8,
+        height: 10,
         borderRadius: radius.full,
         overflow: 'hidden',
         marginBottom: spacing.sm,
@@ -116,7 +116,8 @@ const styles = StyleSheet.create({
         borderRadius: radius.full,
     },
     formula: {
-        fontSize: typography.sizes.xs,
+        fontSize: typography.sizes.sm,
         textAlign: 'center',
+        marginTop: spacing.sm,
     },
 });
