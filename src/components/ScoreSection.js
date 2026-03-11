@@ -15,20 +15,34 @@ export default function ScoreSection({ rightAnswers, wrongAnswers, negValue, neg
     const scoreColor = rawScore === 0 ? colors.textSecondary : rawScore > 0 ? colors.success : colors.danger;
 
     const scaleAnim = useRef(new Animated.Value(1)).current;
+    const bgAnim = useRef(new Animated.Value(0)).current;
     const prevScore = useRef(rawScore);
 
     useEffect(() => {
         if (prevScore.current !== rawScore) {
+            // Spring scale for the number
             Animated.sequence([
-                Animated.timing(scaleAnim, { toValue: 1.06, duration: 90, useNativeDriver: true }),
-                Animated.timing(scaleAnim, { toValue: 1, duration: 90, useNativeDriver: true }),
+                Animated.spring(scaleAnim, { toValue: 1.15, speed: 40, bounciness: 10, useNativeDriver: true }),
+                Animated.spring(scaleAnim, { toValue: 1, speed: 20, bounciness: 8, useNativeDriver: true }),
             ]).start();
+
+            // Flash background slightly
+            Animated.sequence([
+                Animated.timing(bgAnim, { toValue: 1, duration: 100, useNativeDriver: false }),
+                Animated.timing(bgAnim, { toValue: 0, duration: 300, useNativeDriver: false }),
+            ]).start();
+
             prevScore.current = rawScore;
         }
     }, [rawScore]);
 
+    const animatedBg = bgAnim.interpolate({
+        inputRange: [0, 1],
+        outputRange: [colors.surface, colors.primaryLight]
+    });
+
     return (
-        <View style={[styles.card, { backgroundColor: colors.surface, borderColor: scoreColor }, shadow.card]}>
+        <Animated.View style={[styles.card, { backgroundColor: colors.primaryLight, borderColor: colors.primary, borderWidth: 3 }, shadow.card]}>
             {/* Formula row */}
             <View style={[styles.formulaRow, { backgroundColor: colors.scoreBg }]}>
                 <View style={styles.formulaItem}>
@@ -61,32 +75,33 @@ export default function ScoreSection({ rightAnswers, wrongAnswers, negValue, neg
                     {negLabel} negative marking · {rightAnswers + wrongAnswers} answered
                 </Text>
             </Animated.View>
-        </View>
+        </Animated.View>
     );
 }
 
 const styles = StyleSheet.create({
     card: {
-        borderRadius: radius.lg,
+        borderRadius: radius.xl,
         overflow: 'hidden',
         borderWidth: 2,
-        marginBottom: spacing.sm,
+        padding: 24,
+        height: '100%',
     },
     formulaRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-around',
+        justifyContent: 'center',
         paddingVertical: spacing.md,
         paddingHorizontal: spacing.sm,
     },
     formulaItem: { alignItems: 'center', minWidth: 56 },
-    formulaValue: { fontSize: typography.sizes.xl, fontWeight: typography.weights.extraBold },
-    formulaLabel: { fontSize: typography.sizes.xs, marginTop: 2 },
-    formulaOp: { fontSize: typography.sizes.xl, fontWeight: typography.weights.bold, marginHorizontal: spacing.xs },
-    scoreValue: { fontSize: typography.sizes.xl, fontWeight: typography.weights.extraBold },
-    innerDivider: { height: 1 },
-    scoreBig: { alignItems: 'center', paddingVertical: spacing.xl, paddingHorizontal: spacing.md },
-    scoreBigLabel: { fontSize: typography.sizes.xs, fontWeight: typography.weights.bold, letterSpacing: 2, marginBottom: spacing.sm },
-    scoreBigValue: { fontSize: 56, fontWeight: typography.weights.extraBold, letterSpacing: -2, lineHeight: 60 },
-    schemeTag: { fontSize: typography.sizes.xs, marginTop: spacing.sm, opacity: 0.8 },
+    formulaValue: { fontSize: typography.sizes.xl, fontWeight: typography.weights.extraBold, textAlign: 'center' },
+    formulaLabel: { fontSize: typography.sizes.sm, marginTop: 2, fontWeight: typography.weights.medium, textAlign: 'center' },
+    formulaOp: { fontSize: typography.sizes.xl, fontWeight: typography.weights.bold, marginHorizontal: spacing.sm, textAlign: 'center' },
+    scoreValue: { fontSize: typography.sizes.xl, fontWeight: typography.weights.extraBold, textAlign: 'center' },
+    innerDivider: { height: 1, opacity: 0.5 },
+    scoreBig: { alignItems: 'center', paddingVertical: spacing.xxl, paddingHorizontal: spacing.md },
+    scoreBigLabel: { fontSize: typography.sizes.sm, fontWeight: typography.weights.bold, letterSpacing: 2, marginBottom: spacing.sm, textAlign: 'center' },
+    scoreBigValue: { fontSize: 96, fontWeight: typography.weights.extraBold, letterSpacing: -3, lineHeight: 100, textAlign: 'center' },
+    schemeTag: { fontSize: typography.sizes.md, marginTop: spacing.md, fontWeight: typography.weights.medium, opacity: 0.9, textAlign: 'center' },
 });

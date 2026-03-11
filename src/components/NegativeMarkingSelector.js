@@ -10,8 +10,8 @@ import { useTheme } from '../context/ThemeContext';
 import { spacing, radius, typography } from '../theme';
 
 const PRESETS = [
-    { id: '1/3', label: '1/3 Marking', sublabel: 'Deduct ⅓ per wrong answer', value: 1 / 3 },
-    { id: '1/4', label: '1/4 Marking', sublabel: 'Deduct ¼ per wrong answer', value: 1 / 4 },
+    { id: '1/3', label: '1/3 Marking', sublabel: 'Deduct ⅓ per block', value: 1 / 3 },
+    { id: '1/4', label: '1/4 Marking', sublabel: 'Deduct ¼ per block', value: 1 / 4 },
 ];
 
 /**
@@ -30,7 +30,7 @@ export default function NegativeMarkingSelector({ selected, onSelect, customValu
 
     return (
         <View style={styles.container}>
-            <Text style={[styles.sectionTitle, { color: colors.textSecondary }]}>Negative Marking</Text>
+            <Text style={[styles.sectionTitle, { color: colors.textSecondary }]}>⚙  Negative Marking</Text>
 
             {/* ── Preset cards row ── */}
             <View style={styles.optionsRow}>
@@ -41,9 +41,8 @@ export default function NegativeMarkingSelector({ selected, onSelect, customValu
                             key={opt.id}
                             style={[
                                 styles.card,
-                                { backgroundColor: colors.surface, borderColor: isSelected ? colors.primary : colors.border },
-                                isSelected && { backgroundColor: colors.primaryLight },
-                                shadow.card,
+                                { backgroundColor: colors.background, borderColor: isSelected ? colors.primary : colors.border },
+                                isSelected && { backgroundColor: colors.accentRipple },
                             ]}
                             onPress={() => onSelect(opt.id)}
                             activeOpacity={0.75}
@@ -69,9 +68,8 @@ export default function NegativeMarkingSelector({ selected, onSelect, customValu
                 <TouchableOpacity
                     style={[
                         styles.card,
-                        { backgroundColor: colors.surface, borderColor: isCustom ? colors.primary : colors.border },
-                        isCustom && { backgroundColor: colors.primaryLight },
-                        shadow.card,
+                        { backgroundColor: colors.background, borderColor: isCustom ? colors.primary : colors.border },
+                        isCustom && { backgroundColor: colors.accentRipple },
                     ]}
                     onPress={() => onSelect('custom')}
                     activeOpacity={0.75}
@@ -97,10 +95,9 @@ export default function NegativeMarkingSelector({ selected, onSelect, customValu
                 <View style={[
                     styles.customInputCard,
                     {
-                        backgroundColor: colors.surface,
+                        backgroundColor: colors.background,
                         borderColor: customValid ? colors.primary : colors.danger,
                     },
-                    shadow.card,
                 ]}>
                     <View style={styles.customInputRow}>
                         <View style={styles.customLabelGroup}>
@@ -156,7 +153,7 @@ export default function NegativeMarkingSelector({ selected, onSelect, customValu
 }
 
 const styles = StyleSheet.create({
-    container: { marginBottom: spacing.lg },
+    container: {},
     sectionTitle: {
         fontSize: typography.sizes.md,
         fontWeight: typography.weights.semiBold,
@@ -168,19 +165,19 @@ const styles = StyleSheet.create({
     card: {
         flex: 1,
         borderRadius: radius.lg,
-        padding: spacing.sm,
+        padding: spacing.md,
         borderWidth: 2,
         alignItems: 'flex-start',
     },
     dot: {
-        width: 16,
-        height: 16,
-        borderRadius: 8,
+        width: 18,
+        height: 18,
+        borderRadius: 9,
         borderWidth: 2,
-        marginBottom: spacing.xs,
+        marginBottom: spacing.sm,
     },
     fraction: { fontSize: typography.sizes.lg, fontWeight: typography.weights.extraBold, marginBottom: 2 },
-    label: { fontSize: typography.sizes.xs, fontWeight: typography.weights.medium, marginBottom: 2 },
+    label: { fontSize: typography.sizes.sm, fontWeight: typography.weights.bold, marginBottom: 2 },
     sublabel: { fontSize: typography.sizes.xs },
 
     // ── Custom input card ────────────────────────────────────────
