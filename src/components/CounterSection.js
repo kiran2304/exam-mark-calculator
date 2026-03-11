@@ -2,9 +2,9 @@ import React, { useRef } from 'react';
 import {
     View,
     Text,
-    Animated,
-    Pressable,
+    TouchableOpacity,
     StyleSheet,
+    Animated,
 } from 'react-native';
 import { useTheme } from '../context/ThemeContext';
 import { spacing, radius, typography } from '../theme';
@@ -12,66 +12,56 @@ import { spacing, radius, typography } from '../theme';
 export default function CounterSection({ label, count, onIncrement, onDecrement, accentColor, limitReached }) {
     const { colors, shadow } = useTheme();
     const accent = accentColor || colors.primary;
+    const scaleAnim = useRef(new Animated.Value(1)).current;
 
-    // Animation Values
-    const numScale = useRef(new Animated.Value(1)).current;
-    const incScale = useRef(new Animated.Value(1)).current;
-    const decScale = useRef(new Animated.Value(1)).current;
-
-    const pulseNum = () => {
+    const pulse = () => {
         Animated.sequence([
-            Animated.spring(numScale, { toValue: 1.25, speed: 40, bounciness: 12, useNativeDriver: true }),
-            Animated.spring(numScale, { toValue: 1, speed: 20, bounciness: 8, useNativeDriver: true }),
+            Animated.timing(scaleAnim, { toValue: 1.12, duration: 70, useNativeDriver: true }),
+            Animated.timing(scaleAnim, { toValue: 1, duration: 70, useNativeDriver: true }),
         ]).start();
     };
 
-    const handleIncrement = () => { pulseNum(); onIncrement(); };
-    const handleDecrement = () => { if (count > 0) { pulseNum(); onDecrement(); } };
+    const handleIncrement = () => { pulse(); onIncrement(); };
+    const handleDecrement = () => { if (count > 0) { pulse(); onDecrement(); } };
+
     return (
         <View style={[styles.card, { backgroundColor: colors.surface, borderTopColor: accent }, shadow.card]}>
             <Text style={[styles.label, { color: colors.textSecondary }]}>{label}</Text>
             <View style={styles.counterRow}>
                 {/* Decrement */}
-                <Pressable
-                    onPress={handleDecrement}
-                    onPressIn={() => Animated.spring(decScale, { toValue: 0.85, useNativeDriver: true }).start()}
-                    onPressOut={() => Animated.spring(decScale, { toValue: 1, useNativeDriver: true }).start()}
-                    disabled={count === 0}
-                >
-                    <Animated.View style={[
+                <TouchableOpacity
+                    style={[
                         styles.btn,
                         { backgroundColor: colors.surface, borderColor: count === 0 ? colors.border : colors.border },
                         count === 0 && { backgroundColor: colors.background },
-                        { transform: [{ scale: decScale }] }
-                    ]}>
-                        <Text style={[styles.btnText, { color: count === 0 ? colors.border : colors.textPrimary }]}>−</Text>
-                    </Animated.View>
-                </Pressable>
+                    ]}
+                    onPress={handleDecrement}
+                    activeOpacity={0.7}
+                    disabled={count === 0}
+                >
+                    <Text style={[styles.btnText, { color: count === 0 ? colors.border : colors.textPrimary }]}>−</Text>
+                </TouchableOpacity>
 
                 {/* Count */}
-                <Animated.View style={[styles.countBox, { transform: [{ scale: numScale }] }]}>
+                <Animated.View style={[styles.countBox, { transform: [{ scale: scaleAnim }] }]}>
                     <Text style={[styles.countText, { color: accent }]}>{count}</Text>
                 </Animated.View>
 
                 {/* Increment */}
-                <Pressable
-                    onPress={handleIncrement}
-                    onPressIn={() => !limitReached && Animated.spring(incScale, { toValue: 0.85, useNativeDriver: true }).start()}
-                    onPressOut={() => Animated.spring(incScale, { toValue: 1, useNativeDriver: true }).start()}
-                    disabled={limitReached}
-                >
-                    <Animated.View style={[
+                <TouchableOpacity
+                    style={[
                         styles.btn,
                         limitReached
                             ? { backgroundColor: colors.border }
                             : { backgroundColor: accent, ...shadow.button },
-                        { transform: [{ scale: incScale }] }
-                    ]}>
-                        <Text style={[styles.btnText, { color: limitReached ? colors.textSecondary : '#FFFFFF' }]}>
-                            {limitReached ? '⊘' : '+'}
-                        </Text>
-                    </Animated.View>
-                </Pressable>
+                    ]}
+                    onPress={handleIncrement}
+                    activeOpacity={limitReached ? 0.5 : 0.8}
+                >
+                    <Text style={[styles.btnText, { color: limitReached ? colors.textSecondary : '#FFFFFF' }]}>
+                        {limitReached ? '⊘' : '+'}
+                    </Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
@@ -80,8 +70,7 @@ export default function CounterSection({ label, count, onIncrement, onDecrement,
 const styles = StyleSheet.create({
     card: {
         borderRadius: radius.lg,
-        paddingVertical: spacing.lg,
-        paddingHorizontal: 20,
+        padding: spacing.lg,
         marginBottom: spacing.md,
         borderTopWidth: 4,
     },
@@ -98,8 +87,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     btn: {
-        width: 56,
-        height: 56,
+        width: 54,
+        height: 54,
         borderRadius: radius.full,
         alignItems: 'center',
         justifyContent: 'center',
@@ -112,7 +101,7 @@ const styles = StyleSheet.create({
         lineHeight: 30,
     },
     countBox: {
-        flexGrow: 1,
+        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
     },

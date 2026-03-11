@@ -32,7 +32,7 @@ function ResultCard({ item, onDelete }) {
     };
 
     return (
-        <View style={[styles.card, { backgroundColor: colors.background, borderLeftColor: colors.primary }]}>
+        <View style={[styles.card, { backgroundColor: colors.surface, borderLeftColor: colors.primary }, shadow.card]}>
             <View style={styles.cardHeader}>
                 <View style={[styles.scoreBox, { borderRightColor: colors.border }]}>
                     <Text style={[styles.scoreLabel, { color: colors.textSecondary }]}>SCORE</Text>
@@ -113,38 +113,38 @@ export default function ResultsHistory({ results, onDelete, onClearAll, loading 
 }
 
 const styles = StyleSheet.create({
-    wrapper: { marginTop: 0 },
+    wrapper: { marginTop: spacing.sm },
     sectionHeader: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: spacing.md,
+        marginBottom: spacing.sm,
     },
-    sectionTitle: { fontSize: typography.sizes.md, fontWeight: typography.weights.bold, letterSpacing: 0.5, textTransform: 'uppercase' },
+    sectionTitle: { fontSize: typography.sizes.md, fontWeight: typography.weights.semiBold, letterSpacing: 0.5, textTransform: 'uppercase' },
     clearBtn: { paddingHorizontal: spacing.md, paddingVertical: spacing.xs, borderRadius: radius.full, borderWidth: 1 },
-    clearBtnText: { fontSize: typography.sizes.sm, fontWeight: typography.weights.semiBold },
+    clearBtnText: { fontSize: typography.sizes.xs, fontWeight: typography.weights.semiBold },
     card: {
-        borderRadius: radius.md,
+        borderRadius: radius.lg,
         padding: spacing.md,
-        marginBottom: spacing.md,
+        marginBottom: spacing.sm,
         borderLeftWidth: 4,
     },
     cardHeader: { flexDirection: 'row', alignItems: 'center', gap: spacing.md },
     scoreBox: { alignItems: 'center', minWidth: 64, paddingRight: spacing.sm, borderRightWidth: 1 },
-    scoreLabel: { fontSize: typography.sizes.xs, fontWeight: typography.weights.bold, letterSpacing: 1, marginBottom: 4 },
+    scoreLabel: { fontSize: typography.sizes.xs, fontWeight: typography.weights.bold, letterSpacing: 1, marginBottom: 2 },
     scoreValue: { fontSize: typography.sizes.xxl, fontWeight: typography.weights.extraBold, letterSpacing: -0.5 },
-    cardMeta: { flex: 1, gap: 4 },
+    cardMeta: { flex: 1, gap: 3 },
     metaRow: { flexDirection: 'row', alignItems: 'center' },
-    metaIcon: { fontSize: 14, marginRight: 4, fontWeight: '800' },
+    metaIcon: { fontSize: 12, marginRight: 2 },
     metaValue: { fontSize: typography.sizes.md, fontWeight: typography.weights.bold },
     metaSep: { fontWeight: '400' },
-    metaLine: { fontSize: typography.sizes.sm },
-    metaHighlight: { fontWeight: typography.weights.bold },
-    metaDate: { fontSize: typography.sizes.xs, marginTop: 4, fontWeight: typography.weights.medium },
-    deleteBtn: { width: 36, height: 36, borderRadius: radius.full, alignItems: 'center', justifyContent: 'center' },
-    deleteIcon: { fontSize: 18 },
-    emptyCard: { borderRadius: radius.xl, padding: spacing.xl, alignItems: 'center', borderWidth: 2, borderStyle: 'dashed', backgroundColor: 'transparent' },
+    metaLine: { fontSize: typography.sizes.xs },
+    metaHighlight: { fontWeight: typography.weights.semiBold },
+    metaDate: { fontSize: typography.sizes.xs, marginTop: 2 },
+    deleteBtn: { width: 32, height: 32, borderRadius: radius.full, alignItems: 'center', justifyContent: 'center' },
+    deleteIcon: { fontSize: 16 },
+    emptyCard: { borderRadius: radius.lg, padding: spacing.xl, alignItems: 'center', borderWidth: 1.5, borderStyle: 'dashed' },
     emptyIcon: { fontSize: 32, marginBottom: spacing.sm },
-    emptyTitle: { fontSize: typography.sizes.md, fontWeight: typography.weights.bold, marginBottom: spacing.xs },
+    emptyTitle: { fontSize: typography.sizes.md, fontWeight: typography.weights.semiBold, marginBottom: spacing.xs },
     emptySubtitle: { fontSize: typography.sizes.sm, textAlign: 'center' },
 });

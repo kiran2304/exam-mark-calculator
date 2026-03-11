@@ -2,47 +2,46 @@
 // Supports Light and Dark modes
 
 export const lightColors = {
-    primary: '#2d6cdf',
+    primary: '#1A73E8',
     primaryLight: '#E8F0FE',
-    primaryDark: '#1A56C4',
-    background: '#F8F9FA',
+    primaryDark: '#1557B0',
+    background: '#F4F6FA',
     surface: '#FFFFFF',
     surfaceElevated: '#FFFFFF',
-    textPrimary: '#111827',
-    textSecondary: '#6B7280',
-    border: '#E5E7EB',
-    success: '#10B981',
-    danger: '#EF4444',
-    warning: '#F59E0B',
-    warningBg: '#FEF3C7',
-    warningBorder: '#FDE68A',
-    warningText: '#92400E',
+    textPrimary: '#1C1C1E',
+    textSecondary: '#5F6368',
+    border: '#DADCE0',
+    success: '#34A853',
+    danger: '#EA4335',
+    warning: '#F9AB00',
+    warningBg: '#FFF3CD',
+    warningBorder: '#FFCA28',
+    warningText: '#7A5C00',
     white: '#FFFFFF',
-    shadow: 'rgba(0, 0, 0, 0.05)',
-    scoreBg: '#F3F4F6', // Subtle gray instead of blue-tint
-    accentRipple: 'rgba(45, 108, 223, 0.15)',
+    shadow: 'rgba(0,0,0,0.10)',
+    // Score
+    scoreBg: '#FAFBFF',
 };
 
 export const darkColors = {
-    primary: '#3B82F6',
-    primaryLight: '#1E3A8A',
-    primaryDark: '#60A5FA',
-    background: '#111827',
-    surface: '#1F2937',
-    surfaceElevated: '#374151',
-    textPrimary: '#F9FAFB',
-    textSecondary: '#9CA3AF',
-    border: '#374151',
-    success: '#34D399',
-    danger: '#F87171',
-    warning: '#FCD34D',
-    warningBg: '#78350F',
-    warningBorder: '#92400E',
-    warningText: '#FDE68A',
+    primary: '#4E9EF5',
+    primaryLight: '#1A2F4A',
+    primaryDark: '#7BB8FA',
+    background: '#0F1117',
+    surface: '#1C1F2E',
+    surfaceElevated: '#262A3C',
+    textPrimary: '#E8EAED',
+    textSecondary: '#9AA0A6',
+    border: '#3C4050',
+    success: '#46C66A',
+    danger: '#F28B82',
+    warning: '#FDD663',
+    warningBg: '#2A2200',
+    warningBorder: '#5A4900',
+    warningText: '#FDD663',
     white: '#FFFFFF',
-    shadow: 'rgba(0, 0, 0, 0.3)',
-    scoreBg: '#1F2937',
-    accentRipple: 'rgba(59, 130, 246, 0.25)',
+    shadow: 'rgba(0,0,0,0.40)',
+    scoreBg: '#16192A',
 };
 
 // Backward-compat default export (light = default)
@@ -51,13 +50,13 @@ export const colors = lightColors;
 export const typography = {
     fontFamily: 'System',
     sizes: {
-        xs: 12,
-        sm: 14,
-        md: 16,
+        xs: 11,
+        sm: 13,
+        md: 15,
         lg: 18,
-        xl: 24,
-        xxl: 32,
-        hero: 40,
+        xl: 22,
+        xxl: 28,
+        hero: 34,
     },
     weights: {
         regular: '400',
@@ -81,32 +80,24 @@ export const radius = {
     sm: 8,
     md: 12,
     lg: 16,
-    xl: 16, // Dashboard rounded corners (12-16px)
+    xl: 24,
     full: 100,
-};
-
-export const layout = {
-    desktopMaxWidth: 1200, // Dashboard container max width
-    desktopGridGap: 24,
-    desktopPaddingRoot: 24,
-    tabletPaddingRoot: 20,
-    mobilePaddingRoot: 16,
 };
 
 export const makeShadow = (colors) => ({
     card: {
         shadowColor: colors.shadow,
-        shadowOffset: { width: 0, height: 4 },
+        shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 1,
-        shadowRadius: 16,
+        shadowRadius: 8,
         elevation: 3,
     },
     button: {
         shadowColor: colors.primary,
-        shadowOffset: { width: 0, height: 6 },
-        shadowOpacity: 0.2,
-        shadowRadius: 12,
-        elevation: 6,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.30,
+        shadowRadius: 8,
+        elevation: 4,
     },
 });
 
